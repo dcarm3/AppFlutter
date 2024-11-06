@@ -11,7 +11,7 @@ class TaskNoteList extends StatelessWidget {
   final Function(int) onDeleteTask;
   final Function(int) onDeleteNote;
 
-  TaskNoteList({
+  const TaskNoteList({super.key, 
     required this.tasks,
     required this.notes,
     required this.onTaskStatusChanged,
@@ -30,10 +30,11 @@ class TaskNoteList extends StatelessWidget {
           final task = tasks[index];
           return Card(
             elevation: 3,
-            margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+            margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Checkbox(
                     value: task.isCompleted,
@@ -47,18 +48,20 @@ class TaskNoteList extends StatelessWidget {
                       children: [
                         Text(
                           task.title,
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         Text(task.description),
                       ],
                     ),
                   ),
                   IconButton(
-                    icon: Icon(Icons.edit),
+                    icon: const Icon(Icons.edit),
                     onPressed: () => onEditTask(index),
                   ),
                   IconButton(
-                    icon: Icon(Icons.delete),
+                    icon: const Icon(Icons.delete),
                     onPressed: () => onDeleteTask(index),
                   ),
                 ],
@@ -70,7 +73,7 @@ class TaskNoteList extends StatelessWidget {
           final note = notes[noteIndex];
           return Card(
             elevation: 3,
-            margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+            margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
@@ -81,18 +84,20 @@ class TaskNoteList extends StatelessWidget {
                       children: [
                         Text(
                           note.title,
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         Text(note.description),
                       ],
                     ),
                   ),
                   IconButton(
-                    icon: Icon(Icons.edit),
+                    icon: const Icon(Icons.edit),
                     onPressed: () => onEditNote(noteIndex),
                   ),
                   IconButton(
-                    icon: Icon(Icons.delete),
+                    icon: const Icon(Icons.delete),
                     onPressed: () => onDeleteNote(noteIndex),
                   ),
                 ],

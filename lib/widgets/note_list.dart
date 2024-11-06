@@ -5,7 +5,7 @@ class NoteList extends StatelessWidget {
   final List<Note> notes;
   final Function(int) onEditNote;
 
-  NoteList({required this.notes, required this.onEditNote});
+  const NoteList({super.key, required this.notes, required this.onEditNote});
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +16,11 @@ class NoteList extends StatelessWidget {
           onTap: () => onEditNote(index),
           child: Card(
             elevation: 3,
-            margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+            margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             child: ListTile(
               title: Text(notes[index].title),
               subtitle: Text(notes[index].description),
-              trailing: Icon(Icons.edit),
+              trailing: const Icon(Icons.edit),
             ),
           ),
         );

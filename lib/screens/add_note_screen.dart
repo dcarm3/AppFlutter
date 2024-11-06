@@ -1,10 +1,12 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import '../models/note.dart';
 
 class AddNoteScreen extends StatefulWidget {
   final Note? note;
 
-  AddNoteScreen({this.note});
+  const AddNoteScreen({super.key, this.note});
 
   @override
   _AddNoteScreenState createState() => _AddNoteScreenState();
@@ -26,7 +28,7 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
 
   void _saveNote() {
     if (_titleController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Por favor, preencha o título!'),
       ));
       return;
@@ -41,7 +43,7 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
   }
 
   void _deleteNote() {
-    Navigator.pop(context, null); // Deletar a nota
+    Navigator.pop(context, null);
   }
 
   @override
@@ -52,7 +54,7 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
         actions: [
           if (widget.note != null)
             IconButton(
-              icon: Icon(Icons.delete),
+              icon: const Icon(Icons.delete),
               onPressed: _deleteNote,
             ),
         ],
@@ -63,13 +65,13 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
           children: [
             TextField(
               controller: _titleController,
-              decoration: InputDecoration(labelText: 'Título'),
+              decoration: const InputDecoration(labelText: 'Título'),
             ),
             TextField(
               controller: _descriptionController,
-              decoration: InputDecoration(labelText: 'Descrição'),
+              decoration: const InputDecoration(labelText: 'Descrição'),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _saveNote,
               child: Text(

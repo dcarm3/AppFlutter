@@ -4,7 +4,7 @@ import '../models/task.dart';
 class AddTaskScreen extends StatefulWidget {
   final Task? task;
 
-  AddTaskScreen({this.task});
+  const AddTaskScreen({super.key, this.task});
 
   @override
   _AddTaskScreenState createState() => _AddTaskScreenState();
@@ -28,7 +28,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
 
   void _saveTask() {
     if (_titleController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Por favor, preencha o título!'),
       ));
       return;
@@ -55,7 +55,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
         actions: [
           if (widget.task != null)
             IconButton(
-              icon: Icon(Icons.delete),
+              icon: const Icon(Icons.delete),
               onPressed: _deleteTask,
             ),
         ],
@@ -66,13 +66,13 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
           children: [
             TextField(
               controller: _titleController,
-              decoration: InputDecoration(labelText: 'Título'),
+              decoration: const InputDecoration(labelText: 'Título'),
             ),
             TextField(
               controller: _descriptionController,
-              decoration: InputDecoration(labelText: 'Descrição'),
+              decoration: const InputDecoration(labelText: 'Descrição'),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Row(
               children: [
                 Checkbox(
@@ -83,10 +83,10 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                     });
                   },
                 ),
-                Text('Tarefa Concluída')
+                const Text('Tarefa Concluída')
               ],
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _saveTask,
               child: Text(

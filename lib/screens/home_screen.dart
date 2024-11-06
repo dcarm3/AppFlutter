@@ -3,9 +3,10 @@ import '../models/task.dart';
 import '../models/note.dart';
 import '../screens/add_task_screen.dart';
 import '../screens/add_note_screen.dart';
-import '../widgets/task_note_list.dart';
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -17,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void _addNewTask() async {
     final Task? newTask = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => AddTaskScreen()),
+      MaterialPageRoute(builder: (context) => const AddTaskScreen()),
     );
 
     if (newTask != null) {
@@ -30,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void _addNewNote() async {
     final Note? newNote = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => AddNoteScreen()),
+      MaterialPageRoute(builder: (context) => const AddNoteScreen()),
     );
 
     if (newNote != null) {
@@ -46,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (_) {
         return Container(
           height: 150,
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -55,14 +56,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.pop(context);
                   _addNewTask();
                 },
-                child: Text('Adicionar Tarefa'),
+                child: const Text('Adicionar Tarefa'),
               ),
               ElevatedButton(
                 onPressed: () {
                   Navigator.pop(context);
                   _addNewNote();
                 },
-                child: Text('Adicionar Nota'),
+                child: const Text('Adicionar Nota'),
               ),
             ],
           ),
@@ -81,6 +82,10 @@ class _HomeScreenState extends State<HomeScreen> {
     if (editedTask != null) {
       setState(() {
         tasks[index] = editedTask;
+      });
+    } else {
+      setState(() {
+        tasks.removeAt(index);
       });
     }
   }
@@ -119,71 +124,71 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final combinedList = <Widget>[
-      ...tasks.map((task) => Stack(
-            children: [
-              Card(
-                elevation: 3,
-                margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                child: ListTile(
-                  title: Text(task.title),
-                  subtitle: Text(task.description),
-                  trailing: IconButton(
-                    icon: Icon(Icons.edit),
-                    onPressed: () => _editTask(tasks.indexOf(task)),
-                  ),
-                  onLongPress: () => _deleteTask(tasks.indexOf(task)),
-                ),
-              ),
-              Positioned(
-                left: 0,
-                top: 0,
-                child: Checkbox(
-                  value: task.isCompleted,
-                  onChanged: (bool? value) {
-                    _toggleTaskCompletion(tasks.indexOf(task), value ?? false);
-                  },
-                ),
-              ),
-            ],
-          )),
-      ...notes.map((note) => Card(
-            elevation: 3,
-            margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-            child: ListTile(
-              title: Text(note.title),
-              subtitle: Text(note.description),
-              trailing: IconButton(
-                icon: Icon(Icons.edit),
-                onPressed: () => _editNote(notes.indexOf(note)),
-              ),
-              onLongPress: () => _deleteNote(notes.indexOf(note)),
-            ),
-          )),
-    ];
+    List<Widget> combinedList = [];
+
+    for (int i = 0; i < tasks.length; i++) {
+      final task = tasks[i];
+      combinedList.add(Card(
+        elevation: 3,
+        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        child: ListTile(
+          leading: Checkbox(
+            value: task.isCompleted,
+            onChanged: (bool? value) {
+              _toggleTaskCompletion(i, value ?? false);
+            },
+          ),
+          title: Text(task.title),
+          subtitle: Text(task.description),
+          trailing: IconButton(
+            icon: const Icon(Icons.edit),
+            onPressed: () => _editTask(i),
+          ),
+          onLongPress: () => _deleteTask(i),
+        ),
+      ));
+    }
+
+    for (int i = 0; i < notes.length; i++) {
+      final note = notes[i];
+      combinedList.add(Card(
+        elevation: 3,
+        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        child: ListTile(
+          title: Text(note.title),
+          subtitle: Text(note.description),
+          trailing: IconButton(
+            icon: const Icon(Icons.edit),
+            onPressed: () => _editNote(i),
+          ),
+          onLongPress: () => _deleteNote(i),
+        ),
+      ));
+    }
 
     return Scaffold(
       backgroundColor: Colors.blue[50],
       appBar: AppBar(
-        title: Text('NoteApp - Notas e Tarefas'),
+        title: const Text('NoteApp - Notas e Tarefas'),
         backgroundColor: Colors.blue[800],
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
         ),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: combinedList.isEmpty
-              ? Center(child: Text('Nenhuma tarefa ou nota adicionada ainda'))
+              ? const Center(
+                  child: Text('Nenhuma tarefa ou nota adicionada ainda'))
               : ListView(children: combinedList),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _showAddOptions,
         backgroundColor: Colors.blue[800],
-        child: Icon(Icons.add, color: Colors.white),
+        child: const Icon(Icons.add, color: Colors.white),
       ),
     );
   }

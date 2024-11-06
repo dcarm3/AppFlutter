@@ -5,7 +5,7 @@ class TaskList extends StatelessWidget {
   final List<Task> tasks;
   final Function(int) onEditTask;
 
-  TaskList({required this.tasks, required this.onEditTask});
+  const TaskList({super.key, required this.tasks, required this.onEditTask});
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +16,11 @@ class TaskList extends StatelessWidget {
           onTap: () => onEditTask(index),
           child: Card(
             elevation: 3,
-            margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+            margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             child: ListTile(
               title: Text(tasks[index].title),
               subtitle: Text(tasks[index].description),
-              trailing: Icon(Icons.edit),
+              trailing: const Icon(Icons.edit),
             ),
           ),
         );
